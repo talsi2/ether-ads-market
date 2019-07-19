@@ -1,0 +1,6 @@
+/truffle/build
+/node_modules
+package-lock.json
+/build
+.DS_Store
+npm-debug.log*

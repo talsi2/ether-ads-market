@@ -1,0 +1,439 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Ether Ads Market"
+  },
+  "host": "ether-ads-market.herokuapp.com",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Demo",
+      "description": "Demo Examples"
+    },
+    {
+      "name": "Market",
+      "description": "Market Operations"
+    },
+    {
+      "name": "Auction",
+      "description": "Auctions Management"
+    }
+  ],
+  "schemes": ["https"],
+  "paths": {
+    "/demo/{testId}": {
+      "get": {
+        "tags": ["Demo"],
+        "summary": "Runs demo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "testId",
+            "in": "path",
+            "description": "Test id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "description": "Runs the demo of specific test id.",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/market": {
+      "get": {
+        "tags": ["Market"],
+        "summary": "Get available markets",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "markets": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Market"],
+        "summary": "Create market",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Create new market",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Market"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/market/{marketAddress}": {
+      "get": {
+        "tags": ["Market"],
+        "summary": "Get market by address",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "description": "Market address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Market"
+            }
+          }
+        }
+      }
+    },
+    "/market/{marketAddress}/rating": {
+      "get": {
+        "tags": ["Market"],
+        "summary": "Get market rating",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "description": "Market address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            }
+          }
+        }
+      }
+    },
+    "/market/{marketAddress}/rate": {
+      "post": {
+        "tags": ["Market"],
+        "summary": "Give market a rate",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "description": "Market address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Rate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/market/{marketAddress}/auction": {
+      "get": {
+        "tags": ["Market"],
+        "summary": "Returns market acutions",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "description": "Market address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "auctions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Market"],
+        "summary": "Create auction",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "marketAddress",
+            "in": "path",
+            "description": "Market address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auction"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auction/{auctionAddress}": {
+      "get": {
+        "tags": ["Auction"],
+        "summary": "Get auction by address",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "path",
+            "description": "Auction address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Auction"
+            }
+          }
+        }
+      }
+    },
+    "/auction/{auctionAddress}/bid": {
+      "post": {
+        "tags": ["Auction"],
+        "summary": "Place new bid",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "path",
+            "description": "Auction address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Bid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auction/{auctionAddress}/winning_uri": {
+      "get": {
+        "tags": ["Auction"],
+        "summary": "Returns the winning URI",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "path",
+            "description": "Auction address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    },
+    "/auction/{auctionAddress}/withdraw": {
+      "post": {
+        "tags": ["Auction"],
+        "summary": "Withdraw deposits of losing bids",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "path",
+            "description": "Auction address",
+            "required": true,
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdarwRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Market": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"],
+      "xml": {
+        "name": "Market"
+      }
+    },
+    "Rate": {
+      "type": "object",
+      "properties": {
+        "auctionAddress": {
+          "type": "string",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "userId": {
+          "type": "number"
+        },
+        "starsNumber": {
+          "type": "integer",
+          "pattern": "^[1-5]$"
+        }
+      },
+      "required": ["userId", "auctionAddress", "starsNumber"],
+      "xml": {
+        "name": "Rate"
+      }
+    },
+    "Rating": {
+      "type": "object",
+      "properties": {
+        "raters": {
+          "type": "number"
+        },
+        "rating": {
+          "type": "number"
+        }
+      },
+      "required": ["raters", "rating"],
+      "xml": {
+        "name": "Rating"
+      }
+    },
+    "Auction": {
+      "type": "object",
+      "properties": {
+        "biddingTime": {
+          "type": "integer"
+        },
+        "floor": {
+          "type": "integer"
+        }
+      },
+      "required": ["biddingTime", "floor"],
+      "xml": {
+        "name": "Auction"
+      }
+    },
+    "Bid": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number"
+        },
+        "productURI": {
+          "type": "string",
+          "format": "uri"
+        },
+        "bid": {
+          "type": "integer"
+        }
+      },
+      "required": ["userId", "productURI", "bid"],
+      "xml": {
+        "name": "Bid"
+      }
+    },
+    "WithdarwRequest": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number"
+        }
+      },
+      "required": ["userId"],
+      "xml": {
+        "name": "Bid"
+      }
+    }
+  }
+}

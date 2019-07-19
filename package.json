@@ -1,0 +1,61 @@
+{
+  "name": "ether-ads-market",
+  "author": "Tal Sidon <sidongames@gmail.com>",
+  "repository": "github.com:talsi2/ether-ads-market.git",
+  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "ethereum": "ganache-cli",
+    "compile-contracts": "cd truffle && rm -rf ./build && truffle compile",
+    "start": "babel --extensions '.ts,.js' --watch ./src -d ./build & npm run run-app",
+    "run-app": "nodemon -r dotenv/config build/index.js",
+    "test": "jest --setupFiles dotenv/config",
+    "build": "npm run compile-contracts && rm -rf ./build && babel --extensions '.ts,.js' ./src -d ./build",
+    "heroku-start": "ganache-cli > /dev/null & (npm run build && npm start)"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/build/"
+    ]
+  },
+  "dependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/plugin-proposal-class-properties": "7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+    "@babel/preset-typescript": "7.3.3",
+    "@koa/cors": "3.0.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-jest": "24.6.0",
+    "debug": "4.1.1",
+    "dotenv": "8.0.0",
+    "ganache-cli": "6.4.3",
+    "koa": "2.7.0",
+    "koa-bodyparser": "4.2.1",
+    "koa-bouncer": "6.0.4",
+    "koa-helmet": "4.1.0",
+    "koa-logger": "3.2.0",
+    "koa-static": "5.0.0",
+    "koa-tree-router": "0.4.6",
+    "koa2-swagger-ui": "2.13.3",
+    "nodemon": "1.19.0",
+    "prettier": "1.18.2",
+    "solc": "0.5.0",
+    "truffle": "5.0.19",
+    "truffle-contract": "2.0.5",
+    "web3": "0.20.7"
+  },
+  "devDependencies": {
+    "@types/jest": "24.0.13",
+    "@typescript-eslint/eslint-plugin": "1.9.0",
+    "@typescript-eslint/parser": "1.9.0",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "3.6.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "jest": "24.8.0",
+    "node-fetch": "2.6.0",
+    "typescript": "3.4.5"
+  }
+}
